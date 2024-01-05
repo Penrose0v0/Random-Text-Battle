@@ -36,7 +36,7 @@ print <<EOF
     <!-- NAVBAR CREATION -->
    <header class="header">
     <nav class="navbar">
-        <a href="home.html">ホーム</a>
+        <a href="home.rb">ホーム</a>
         <a href="modify_character.rb">ステータス</a>
         <a href="ranking.rb">ランキング</a>
     </nav>

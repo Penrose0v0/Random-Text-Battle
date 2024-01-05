@@ -12,13 +12,12 @@ db = SQLite3::Database.new("../local_only/wp/game.db")
 result = db.get_first_value("SELECT COUNT(*) FROM character WHERE name=? AND password=?", name, password)
 db.close
 
-html_msg = "<body>"
+html_msg = ""
 redirect_page = ""
 wait_time = 0
 if result.to_i > 0
     new_cookie = CGI::Cookie
     new_cookie = CGI::Cookie.new("name" => "name", "value" => name.to_s)
-    html_msg += "sucess"
     redirect_page = "./home.rb"
     print cgi.header("type" => "text/html", "charset" => "utf-8", "cookie" => [new_cookie])
 else
@@ -26,6 +25,7 @@ else
     html_msg += "<p>Redirecting back to login page in 3 seconds...</p>"
     redirect_page = "./sign_in.rb"
     wait_time = 3000
+    print cgi.header("text/html; charset=utf-8")
 end
 
 print <<EOF
@@ -37,6 +37,7 @@ print <<EOF
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 </head>
 <body>
+    #{html_msg}
 </body>
 <script>
       setTimeout(function() {
